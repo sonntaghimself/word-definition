@@ -1,17 +1,12 @@
-" Starts a section for Python 3 code.
 python3 << EOF
-# Imports Python modules to be used by the plugin.
+
 import vim
 import json, requests
 
-# Sets up variables for the HTTP requests the
-# plugin makes to fetch word definitions from
-# the Wiktionary dictionary.
 request_headers = { "accept": "application/json" }
 request_base_url = "https://en.wiktionary.org/api/rest_v1/page/definition/"
 request_url_options = "?redirect=true"
 
-# Fetches available definitions for a given word.
 def get_word_definitions(word_to_define):
     response = requests.get(request_base_url + word_to_define + request_url_options, headers=request_headers)
 
@@ -33,7 +28,7 @@ function! example-plugin#DefineWord()
     let cursorWord = expand('<cword>')
     python3 get_word_definitions(vim.eval('cursorWord'))
 endfunction
-    
+
 function! example-plugin#AspellCheck()
     let cursorWord = expand('<cword>')
     let aspellSuggestions = system("echo '" . cursorWord . "' | aspell -a")
